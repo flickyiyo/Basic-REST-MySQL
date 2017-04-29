@@ -1,5 +1,4 @@
-# Basic-REST-MySQL-with-node
-
+# Basic REST API with NODE and MySQL
 ```
 npm install
 node index.js
