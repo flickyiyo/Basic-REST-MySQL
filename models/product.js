@@ -25,23 +25,28 @@ module.exports = class {
         Send an array of the fields you want to select:
         my_model.read(req,res,fields=['name']) to select name only
         my_model.read(req,res,fields=['name','description']) to select name and description only
-        Send a
+
+
+        http://localhost:5000/api/products?table=rest&condition=name='juanjo'&fields='name','price'
+        for read method of this class this is the way you pass paramters to the query string
     */ 
-    read(req,res,fields='*',limit = false,condition=true){
-        let query = (limit==false) ? `SELECT ${fields.toString()} FROM rest `: `SELECT ${fields.toString()} FROM rest LIMIT 0,${limit}`;
-        if(condition)
-            connection.query(query,(error,result)=>{
-                if(error)
-                    res.status(500).send({err});
-                else
-                    if(result)
-                        res.status(200).send(result)
-                    else
-                        res.status(404).send({message:'Not Found'});
-            })
-        else{
-            console.log(req.params);
-        }
-        
+    read(req,res){
+        let params = req.query;
+        let table;
+        (!params.table) ? res.status(400).send({message:'bad request'}): table = params.table;
+        let fields = (!params.fields) ? '*' : params.fields.toString();
+        let condition = (!params.condition) ? '' : `WHERE ${params.condition}` ;
+        let limit =(!params.limit) ? '' : `LIMIT ${params.limit}` ;
+        let offset = (!params.offset) ? '' : `OFFSET ${params.offset}`;
+        let query = `SELECT ${fields} FROM ${table} ${condition} ${limit} ${offset}`;
+        console.log(query);
+        console.log(['nombre','precio'].toString())
+        connection.query(query,(error,result)=>{
+            if(error){
+                res.status(500).send({error});
+            }else{
+                res.status(200).send(result);
+            }
+        })
     }
 }

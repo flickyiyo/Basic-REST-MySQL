@@ -20,9 +20,16 @@ function basicInsert(req,res){//We will send all data in JSON and using POST
     new_prod.create(req,res);
 }
 
+function getParameters(req,res){
+    res.status(200).send({parametro:req.query.name});
+}
+
+
+
 
 module.exports = {
     HelloWorld,
     basicSelect,
-    basicInsert
+    basicInsert,
+    getParameters
 }
