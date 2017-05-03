@@ -6,7 +6,7 @@ function HelloWorld(req,res){
 }
 function basicSelect(req,res){
     let select_prods = new Product();
-    select_prods.read(req,res);
+    select_prods.read(req,res);//*/
 }
 /*{
     'name':'My Name',
@@ -19,6 +19,7 @@ function basicInsert(req,res){//We will send all data in JSON and using POST
     let new_prod = new Product(params.name,params.description,params.price);
     new_prod.create(req,res);
 }
+
 
 module.exports = {
     HelloWorld,

@@ -27,17 +27,21 @@ module.exports = class {
         my_model.read(req,res,fields=['name','description']) to select name and description only
         Send a
     */ 
-    read(req,res,fields='*',condition=true){
-        let query = `SELECT ${fields.toString()} FROM rest `;
+    read(req,res,fields='*',limit = false,condition=true){
+        let query = (limit==false) ? `SELECT ${fields.toString()} FROM rest `: `SELECT ${fields.toString()} FROM rest LIMIT 0,${limit}`;
         if(condition)
             connection.query(query,(error,result)=>{
                 if(error)
                     res.status(500).send({err});
                 else
                     if(result)
-                        res.status(200).send({result})
+                        res.status(200).send(result)
                     else
                         res.status(404).send({message:'Not Found'});
             })
+        else{
+            console.log(req.params);
+        }
+        
     }
 }

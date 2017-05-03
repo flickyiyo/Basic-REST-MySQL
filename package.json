@@ -24,7 +24,11 @@
   "homepage": "https://github.com/flickyiyo/Basic-REST-MySQL-with-node#readme",
   "dependencies": {
     "body-parser": "^1.17.1",
+    "cors": "^2.8.3",
     "express": "^4.15.2",
     "mysql": "^2.13.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.11.0"
   }
 }
