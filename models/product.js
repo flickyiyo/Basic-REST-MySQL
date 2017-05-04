@@ -49,4 +49,11 @@ module.exports = class {
             }
         })
     }
+    update(req,res){
+        let params = req.query;
+        let table;
+        (!params.table && !params.fields) ? res.status(400).send({message:'bad request'}): table = params.table;
+        let condition = (!params.condition) ? '' : `WHERE ${params.condition}` ;
+
+    }
 }
