@@ -18,10 +18,10 @@ function isAuthorized(req,res,next){
             res.status(403).send({message:'Not authorized'});
         }
     }
-    console.log(payload.exp);
     if(payload.exp > moment().unix()){
-        console.log('passing');
-        next()
+        next();
+    }else{
+        res.status(401).send({status:401,message:'Expired sesion'});
     }
 }
 //login path
